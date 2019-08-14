@@ -123,10 +123,10 @@ class Request(models.Model):
         verbose_name='District - ജില്ല'
     )
     location = models.CharField(max_length=500,verbose_name='Location - സ്ഥലം')
-    requestee = models.CharField(max_length=100,verbose_name='Requestee - അപേക്ഷകന്‍റെ പേര്')
+    requestee = models.CharField(max_length=100,verbose_name='Requestee - അപേക്ഷകന്റെ പേര്')
 
     phone_number_regex = RegexValidator(regex='^((\+91|91|0)[\- ]{0,1})?[456789]\d{9}$', message='Please Enter 10/11 digit mobile number or landline as 0<std code><phone number>', code='invalid_mobile')
-    requestee_phone = models.CharField(max_length=14,verbose_name='Requestee Phone - അപേക്ഷകന്‍റെ ഫോണ്‍ നമ്പര്‍', validators=[phone_number_regex])
+    requestee_phone = models.CharField(max_length=14,verbose_name='Requestee Phone - അപേക്ഷകന്റെ ഫോണ്‍ നമ്പര്‍', validators=[phone_number_regex])
 
     latlng = models.CharField(max_length=100, verbose_name='GPS Coordinates - GPS നിർദ്ദേശാങ്കങ്ങൾ ', blank=True)
     latlng_accuracy = models.CharField(max_length=100, verbose_name='GPS Accuracy - GPS കൃത്യത ', blank=True)
@@ -142,13 +142,13 @@ class Request(models.Model):
     needkit_util = models.BooleanField(verbose_name='Kitchen utensil - അടുക്കള സാമഗ്രികള്‍')
     needrescue = models.BooleanField(verbose_name='Need rescue - രക്ഷാപ്രവർത്തനം ആവശ്യമുണ്ട്')
 
-    detailwater = models.CharField(max_length=250, verbose_name='Details for required water - ആവശ്യമായ വെള്ളത്തിന്‍റെ വിവരങ്ങള്‍', blank=True)
-    detailfood = models.CharField(max_length=250, verbose_name='Details for required food - ആവശ്യമായ ഭക്ഷണത്തിന്‍റെ വിവരങ്ങള്‍', blank=True)
-    detailcloth = models.CharField(max_length=250, verbose_name='Details for required clothing - ആവശ്യമായ വസ്ത്രത്തിന്‍റെ വിവരങ്ങള്‍', blank=True)
-    detailmed = models.CharField(max_length=250, verbose_name='Details for required medicine - ആവശ്യമായ മരുന്നിന്‍റെ  വിവരങ്ങള്‍', blank=True)
+    detailwater = models.CharField(max_length=250, verbose_name='Details for required water - ആവശ്യമായ വെള്ളത്തിന്റെ വിവരങ്ങള്‍', blank=True)
+    detailfood = models.CharField(max_length=250, verbose_name='Details for required food - ആവശ്യമായ ഭക്ഷണത്തിന്റെ വിവരങ്ങള്‍', blank=True)
+    detailcloth = models.CharField(max_length=250, verbose_name='Details for required clothing - ആവശ്യമായ വസ്ത്രത്തിന്റെ വിവരങ്ങള്‍', blank=True)
+    detailmed = models.CharField(max_length=250, verbose_name='Details for required medicine - ആവശ്യമായ മരുന്നിന്റെ  വിവരങ്ങള്‍', blank=True)
     detailtoilet = models.CharField(max_length=250, verbose_name='Details for required toiletries - ആവശ്യമായ  ശുചീകരണ സാമഗ്രികള്‍', blank=True)
     detailkit_util = models.CharField(max_length=250, verbose_name='Details for required kitchen utensil - ആവശ്യമായ അടുക്കള സാമഗ്രികള്‍', blank=True)
-    detailrescue = models.CharField(max_length=250, verbose_name='Details for rescue action - രക്ഷാപ്രവർത്തനം വിവരങ്ങള്', blank=True)
+    detailrescue = models.CharField(max_length=250, verbose_name='Details for rescue action - രക്ഷാപ്രവർത്തനം വിവരങ്ങള്‍', blank=True)
 
     needothers = models.CharField(max_length=500, verbose_name="Other needs - മറ്റു ആവശ്യങ്ങള്‍", blank=True)
     status = models.CharField(
@@ -309,11 +309,10 @@ class DistrictNeed(models.Model):
     )
     needs = models.TextField(verbose_name="Items required")
     cnandpts = models.TextField(verbose_name="Contacts and collection points") #contacts and collection points
-    inventory = models.TextField()
 
     class Meta:
-        verbose_name = 'District: Need and Collection center'
-        verbose_name_plural = 'District: Needs and Collection centers'
+        verbose_name = 'District: Need'
+        verbose_name_plural = 'District: Needs'
 
     def __str__(self):
         return self.get_district_display()
@@ -576,8 +575,8 @@ class DataCollection(models.Model):
     tag = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Data Uploads'
-        verbose_name_plural = 'Data Uploads'
+        verbose_name = 'Data: Collection'
+        verbose_name_plural = 'Data: Collections'
 
     def __str__(self):
         return self.document_name
@@ -636,9 +635,6 @@ class CollectionCenter(models.Model):
     city = models.CharField(null=True, blank=True, max_length=150, verbose_name="City - നഗരം")
     added_at = models.DateTimeField(auto_now_add=True)
     map_link = models.TextField( verbose_name='Map(Cordinate links) link',blank=True,null=True,help_text="Copy and paste the full Google Maps link")
-
-    class Meta:
-        verbose_name = 'Private collection centers'
 
     def __str__(self):
         return self.name
